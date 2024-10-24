@@ -134,10 +134,94 @@
 // Internship Certificate
 
 
+// import React, { useState } from "react";
+// import { toPng } from 'html-to-image';
+
+// const CertificateGenerator = () => {
+//   const [name, setName] = useState("");
+//   const [phone, setPhone] = useState("");
+//   const [seal, setSeal] = useState("Company Seal");
+
+//   const handleDownload = () => {
+//     const certificate = document.getElementById('certificate');
+//     toPng(certificate)
+//       .then((dataUrl) => {
+//         const link = document.createElement('a');
+//         link.download = 'certificate.png';
+//         link.href = dataUrl;
+//         link.click();
+//       })
+//       .catch((error) => {
+//         console.error('Error generating image', error);
+//       });
+//   };
+
+//   return (
+//     <div className="flex flex-col items-center">
+//       {/* Form to Input Data */}
+//       <div className="w-96 p-4 shadow-lg rounded">
+//         <label className="block">Name:</label>
+//         <input
+//           type="text"
+//           value={name}
+//           onChange={(e) => setName(e.target.value)}
+//           className="w-full p-2 border rounded"
+//         />
+//         <label className="block mt-4">Phone:</label>
+//         <input
+//           type="text"
+//           value={phone}
+//           onChange={(e) => setPhone(e.target.value)}
+//           className="w-full p-2 border rounded"
+//         />
+//         <button
+//           onClick={handleDownload}
+//           className="bg-blue-500 text-white mt-4 p-2 rounded"
+//         >
+//           Download Certificate
+//         </button>
+//       </div>
+
+     
+//       <div
+//         id="certificate"
+//         className="border-2 p-10 mt-6 bg-white text-center"
+//         style={{ width: '600px', height: '400px' }}
+//       >
+//         <h1 className="text-3xl font-bold">Internship Certificate</h1>
+//         <p className="mt-6 text-xl">This certifies that</p>
+//         <p className="text-2xl font-semibold">{name}</p>
+//         <p className="mt-4 text-xl">has completed the internship</p>
+//         <p className="mt-6 text-lg">Phone: {phone}</p>
+//         <div className="mt-10">
+//           <p>{seal}</p>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default CertificateGenerator;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import React, { useState } from "react";
 import { toPng } from 'html-to-image';
 
-const CertificateGenerator = () => {
+const Form = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [seal, setSeal] = useState("Company Seal");
@@ -150,6 +234,10 @@ const CertificateGenerator = () => {
         link.download = 'certificate.png';
         link.href = dataUrl;
         link.click();
+        
+        // Clear form data after download
+        setName("");
+        setPhone("");
       })
       .catch((error) => {
         console.error('Error generating image', error);
@@ -157,48 +245,64 @@ const CertificateGenerator = () => {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center p-4">
       {/* Form to Input Data */}
-      <div className="w-96 p-4 shadow-lg rounded">
-        <label className="block">Name:</label>
+      <div className="w-full max-w-md p-4 shadow-lg rounded bg-white">
+        <h2 className="text-2xl font-semibold mb-4 text-gray-700">Fill the Details</h2>
+        <label className="block text-gray-600">Name:</label>
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border rounded mb-4"
+          placeholder="Enter your name"
         />
-        <label className="block mt-4">Phone:</label>
+        <label className="block text-gray-600">Phone:</label>
         <input
           type="text"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border rounded mb-4"
+          placeholder="Enter your phone number"
         />
         <button
           onClick={handleDownload}
-          className="bg-blue-500 text-white mt-4 p-2 rounded"
+          className="bg-blue-500 text-white mt-4 p-2 rounded w-full hover:bg-blue-600"
         >
           Download Certificate
         </button>
       </div>
 
-      {/* Certificate Template */}
+      {/* Certificate Display */}
       <div
         id="certificate"
-        className="border-2 p-10 mt-6 bg-white text-center"
-        style={{ width: '600px', height: '400px' }}
+        className="relative border-4 border-gray-500 bg-gradient-to-br from-white to-blue-100 p-10 mt-10 text-center w-full rounded-lg shadow-2xl"
+        style={{ maxWidth: '600px', height: 'auto' }}
       >
-        <h1 className="text-3xl font-bold">Internship Certificate</h1>
-        <p className="mt-6 text-xl">This certifies that</p>
-        <p className="text-2xl font-semibold">{name}</p>
-        <p className="mt-4 text-xl">has completed the internship</p>
-        <p className="mt-6 text-lg">Phone: {phone}</p>
-        <div className="mt-10">
-          <p>{seal}</p>
+        {/* Decorative Corners */}
+        <div className="absolute top-0 left-0 w-10 h-10 bg-blue-500 rounded-bl-lg"></div>
+        <div className="absolute top-0 right-0 w-10 h-10 bg-blue-500 rounded-br-lg"></div>
+        <div className="absolute bottom-0 left-0 w-10 h-10 bg-blue-500 rounded-tl-lg"></div>
+        <div className="absolute bottom-0 right-0 w-10 h-10 bg-blue-500 rounded-tr-lg"></div>
+
+        <h1 className="text-3xl md:text-4xl font-bold text-blue-600">Certificate of Completion</h1>
+        <p className="mt-6 text-lg md:text-xl italic text-gray-700">This is to certify that</p>
+        <p className="text-xl md:text-2xl font-semibold text-gray-800">{name || "Recipient's Name"}</p>
+        <p className="mt-4 text-lg md:text-xl italic text-gray-700">has successfully completed the internship.</p>
+        
+      
+        <p className="mt-4 text-lg italic text-gray-700">Phone Number: {phone || "Not provided"}</p>
+        
+        <div className="flex justify-between mt-10 items-center">
+          <p className="text-gray-700 text-lg font-semibold">{seal}</p>
+          <div className="flex flex-col items-center">
+            <p className="text-sm text-gray-600">Authorized Signature</p>
+            <div className="h-10 w-32 border-t-2 border-gray-600 mt-2"></div>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default CertificateGenerator;
+export default Form;
